@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { StudentContext } from "../../../context/student-context";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   createPaymentService,
   fetchStudentBoughtCoursesService,
@@ -93,6 +93,7 @@ function StudentViewCourseDetailPage() {
       setloading(false);
     }
   }
+  const navigate=useNavigate();
 
   useEffect(() => {
     if (currentcoursedetailid !== null) fetchStudentViewCourseDetail();
@@ -155,7 +156,7 @@ function StudentViewCourseDetailPage() {
               {hasBought ? (
                 <Button
                   onClick={() => {
-                    window.location.href = `/course-progress/${studentviewcoursedetail?._id}`;
+                     navigate(`/course-progress/${studentviewcoursedetail?._id}`)
                   }}
                   className="w-full text-lg font-semibold py-6 bg-green-600 hover:bg-green-700"
                 >

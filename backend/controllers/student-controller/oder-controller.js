@@ -43,7 +43,7 @@ export const createOrder = async (req, res) => {
     return res.status(201).json({
       success: true,
       data: {
-        approveUrl: `${process.env.FRONTEND_URL}/payment-return?orderId=${newlyCreatedCourseOrder._id}`,
+        approveUrl: `${process.env.FRONTEND_URL}/student-courses`,
         orderId: newlyCreatedCourseOrder._id,
       },
     });
