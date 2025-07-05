@@ -21,6 +21,7 @@ function App() {
   return (
     <Routes>
       {/* Auth Route */}
+       <Route path="course-progress/:id" element={<StudentVirwCourseProgresspage />} />
       <Route
         path="/auth"
         element={
@@ -81,7 +82,7 @@ function App() {
         <Route path="course/details/:id" element={<StudentViewCourseDetailPage />} />
         <Route path="payment-return" element={<PaypalPaymentReturnPage />} />
         <Route path="student-courses" element={<StudentCoursesPage />} />
-         <Route path="course-progress/:id" element={<StudentVirwCourseProgresspage />} />
+        
       </Route>
       <Route path="*" element={<NotfoundPage/>}/>
     </Routes>
