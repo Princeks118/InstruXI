@@ -7,37 +7,30 @@ function PaypalPaymentReturnPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const params = new URLSearchParams(location.search);
-  
-  // For real PayPal flow
-  const paymentId = params.get("paymentId");
-  const payerId = params.get("PayerID");
 
-  // For mock flow
-  const orderIdFromURL = params.get("orderId");
+  const orderId = params.get("orderId");
 
   useEffect(() => {
-    async function capturePayment() {
-      const storedOrderId = sessionStorage.getItem("currentOrderId");
-      const orderId = storedOrderId
-        ? JSON.parse(storedOrderId)
-        : orderIdFromURL;
-
+    async function finalizePurchase() {
       if (!orderId) return;
 
-      const response = await captureAndFinalizePaymentService(
-        paymentId || "mock_payment_id",
-        payerId || "mock_payer_id",
-        orderId
-      );
+      try {
+        await captureAndFinalizePaymentService(
+          "mock_payment_id",  // Skip PayPal
+          "mock_payer_id",
+          orderId
+        );
 
-      if (response?.success) {
-        sessionStorage.removeItem("currentOrderId");
         navigate("/home");
+      } catch (error) {
+        console.error("Payment finalization failed", error);
+        // optionally show a toast or fallback message
+        navigate("/home"); // fallback anyway
       }
     }
 
-    capturePayment();
-  }, [paymentId, payerId, orderIdFromURL]);
+    finalizePurchase();
+  }, [orderId, navigate]);
 
   return (
     <Card className="max-w-md mx-auto mt-20 text-center shadow-lg">
