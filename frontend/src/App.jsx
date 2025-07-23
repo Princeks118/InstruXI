@@ -12,8 +12,7 @@ import StudentViewCorusePage from "./pages/student/courses";
 import StudentViewCourseDetailPage from "./pages/student/course-detail";
 import PaypalPaymentReturnPage from "./pages/student/payment-return";
 import StudentCoursesPage from "./pages/student/student-courses";
-import StudentVirwCourseProgresspage from "./pages/student/course-progress";
-
+import StudentViewCourseProgressPage from "./pages/student/course-progress"; // ✅ fixed typo
 
 function App() {
   const { auth } = useContext(AuthContext);
@@ -21,7 +20,6 @@ function App() {
   return (
     <Routes>
       {/* Auth Route */}
-       <Route path="course-progress/:id" element={<StudentVirwCourseProgresspage />} />
       <Route
         path="/auth"
         element={
@@ -33,7 +31,7 @@ function App() {
         }
       />
 
-      {/* Instructor Route */}
+      {/* Instructor Routes */}
       <Route
         path="/instructor"
         element={
@@ -53,9 +51,8 @@ function App() {
             user={auth.user}
           />
         }
-
       />
-        <Route
+      <Route
         path="/instructor/edit-course/:courseid"
         element={
           <RouteGuard
@@ -64,7 +61,8 @@ function App() {
             user={auth.user}
           />
         }
-        />
+      />
+
       {/* Student Layout with nested routes */}
       <Route
         path="/"
@@ -82,9 +80,11 @@ function App() {
         <Route path="course/details/:id" element={<StudentViewCourseDetailPage />} />
         <Route path="payment-return" element={<PaypalPaymentReturnPage />} />
         <Route path="student-courses" element={<StudentCoursesPage />} />
-        
+        <Route path="course-progress/:id" element={<StudentViewCourseProgressPage />} /> {/* ✅ moved inside layout */}
       </Route>
-      <Route path="*" element={<NotfoundPage/>}/>
+
+      {/* 404 Fallback */}
+      <Route path="*" element={<NotfoundPage />} />
     </Routes>
   );
 }
