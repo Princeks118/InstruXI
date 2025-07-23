@@ -32,7 +32,7 @@ function PaypalPaymentReturnPage() {
 
       if (response?.success) {
         sessionStorage.removeItem("currentOrderId");
-        navigate("/student-courses");
+        navigate("/home");
       }
     }
 
